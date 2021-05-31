@@ -1,0 +1,393 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CT25Team111Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="AspNetRole">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="AspNetUsers" Relationship="Self.AspNetUserRoles" FromRole="AspNetRoles" ToRole="AspNetUsers" />
+  </EntityType>
+  <EntityType Name="AspNetUserClaim">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaims" ToRole="AspNetUsers" />
+  </EntityType>
+  <EntityType Name="AspNetUserLogin">
+    <Key>
+      <PropertyRef Name="LoginProvider" />
+      <PropertyRef Name="ProviderKey" />
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="LoginProvider" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ProviderKey" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="AspNetUser" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogins" ToRole="AspNetUsers" />
+  </EntityType>
+  <EntityType Name="AspNetUser">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+    <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+    <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+    <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+    <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
+    <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
+    <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+  </EntityType>
+  <EntityType Name="Chitietdonhang">
+    <Key>
+      <PropertyRef Name="Mã_CTĐH" />
+    </Key>
+    <Property Name="Mã_CTĐH" Type="Int32" Nullable="false" />
+    <Property Name="Mã_ĐH" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Mã_SP" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Số_lượng" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Donhang" Relationship="Self.FK_Chi_tiết_đơn_hàng_Đơn_hàng_1" FromRole="Chitietdonhang" ToRole="Donhang" />
+    <NavigationProperty Name="Sanpham" Relationship="Self.FK_Chitietdonhang_Sanpham" FromRole="Chitietdonhang" ToRole="Sanpham" />
+  </EntityType>
+  <EntityType Name="Chitietgiohang">
+    <Key>
+      <PropertyRef Name="Mã_CTGH" />
+    </Key>
+    <Property Name="Mã_CTGH" Type="Int32" Nullable="false" />
+    <Property Name="Mã_GH" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Mã_SP" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Số_lượng" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Giohang" Relationship="Self.FK_Chi_tiết_giỏ_hàng_1_Giỏ_hàng" FromRole="Chitietgiohang" ToRole="Giohang" />
+    <NavigationProperty Name="Sanpham" Relationship="Self.FK_Chitietgiohang_Sanpham" FromRole="Chitietgiohang" ToRole="Sanpham" />
+  </EntityType>
+  <EntityType Name="Chitiethanhtoan">
+    <Key>
+      <PropertyRef Name="Mã_ĐH" />
+      <PropertyRef Name="Mã_HTTT" />
+      <PropertyRef Name="Số_tiền" />
+    </Key>
+    <Property Name="Mã_ĐH" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Mã_HTTT" Type="Int32" Nullable="false" />
+    <Property Name="Số_tiền" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Donhang" Relationship="Self.FK_Chi_tiết_thanh_toán_1_Đơn_hàng_1" FromRole="Chitiethanhtoan" ToRole="Donhang" />
+    <NavigationProperty Name="Hinhthucthanhtoan" Relationship="Self.FK_Chi_tiết_thanh_toán_1_Hình_thức_thanh_toán" FromRole="Chitiethanhtoan" ToRole="Hinhthucthanhtoan" />
+  </EntityType>
+  <EntityType Name="Donhang">
+    <Key>
+      <PropertyRef Name="Mã_ĐH" />
+    </Key>
+    <Property Name="Mã_ĐH" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Mã_TT" Type="Int32" Nullable="false" />
+    <Property Name="Địa_chỉ_người_nhận" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="SĐT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Tổng_tiền" Type="Int32" Nullable="false" />
+    <Property Name="Ngày_giao" Type="DateTime" Nullable="false" Precision="0" />
+    <NavigationProperty Name="Chitietdonhangs" Relationship="Self.FK_Chi_tiết_đơn_hàng_Đơn_hàng_1" FromRole="Donhang" ToRole="Chitietdonhang" />
+    <NavigationProperty Name="Chitiethanhtoans" Relationship="Self.FK_Chi_tiết_thanh_toán_1_Đơn_hàng_1" FromRole="Donhang" ToRole="Chitiethanhtoan" />
+    <NavigationProperty Name="Khachhang" Relationship="Self.FK_Đơn_hàng_1_Khách_hàng" FromRole="Donhang" ToRole="Khachhang" />
+    <NavigationProperty Name="Trangthaidonhang" Relationship="Self.FK_Đơn_hàng_1_Trạng_thái_đơn_hàng" FromRole="Donhang" ToRole="Trangthaidonhang" />
+  </EntityType>
+  <EntityType Name="Giohang">
+    <Key>
+      <PropertyRef Name="Mã_GH" />
+    </Key>
+    <Property Name="Mã_GH" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Tổng_tiền" Type="Int32" Nullable="false" />
+    <Property Name="Ngày_tạo" Type="DateTime" Nullable="false" Precision="0" />
+    <NavigationProperty Name="Chitietgiohangs" Relationship="Self.FK_Chi_tiết_giỏ_hàng_1_Giỏ_hàng" FromRole="Giohang" ToRole="Chitietgiohang" />
+    <NavigationProperty Name="Khachhang" Relationship="Self.FK_Giỏ_hàng_Khách_hàng" FromRole="Giohang" ToRole="Khachhang" />
+  </EntityType>
+  <EntityType Name="Hinhthucthanhtoan">
+    <Key>
+      <PropertyRef Name="Mã_HTTT" />
+    </Key>
+    <Property Name="Mã_HTTT" Type="Int32" Nullable="false" />
+    <Property Name="Hình_thức_thanh_toán" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Chitiethanhtoans" Relationship="Self.FK_Chi_tiết_thanh_toán_1_Hình_thức_thanh_toán" FromRole="Hinhthucthanhtoan" ToRole="Chitiethanhtoan" />
+  </EntityType>
+  <EntityType Name="Khachhang">
+    <Key>
+      <PropertyRef Name="Email" />
+    </Key>
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Họ_tên" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="SĐT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Địa_chỉ" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Donhangs" Relationship="Self.FK_Đơn_hàng_1_Khách_hàng" FromRole="Khachhang" ToRole="Donhang" />
+    <NavigationProperty Name="Giohangs" Relationship="Self.FK_Giỏ_hàng_Khách_hàng" FromRole="Khachhang" ToRole="Giohang" />
+  </EntityType>
+  <EntityType Name="Loaisanpham">
+    <Key>
+      <PropertyRef Name="Mã_loại_SP" />
+    </Key>
+    <Property Name="Mã_loại_SP" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Tên_loại_SP" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Sanphams" Relationship="Self.FK_Sanpham_Loaisanpham" FromRole="Loaisanpham" ToRole="Sanpham" />
+  </EntityType>
+  <EntityType Name="Sanpham">
+    <Key>
+      <PropertyRef Name="Mã_SP" />
+    </Key>
+    <Property Name="Mã_SP" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Mã_loại_SP" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Tên_món_ăn" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Số_lượng" Type="Int32" Nullable="false" />
+    <Property Name="Giá_tiền" Type="Int32" Nullable="false" />
+    <Property Name="Mô_tả" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Chitietdonhangs" Relationship="Self.FK_Chitietdonhang_Sanpham" FromRole="Sanpham" ToRole="Chitietdonhang" />
+    <NavigationProperty Name="Chitietgiohangs" Relationship="Self.FK_Chitietgiohang_Sanpham" FromRole="Sanpham" ToRole="Chitietgiohang" />
+    <NavigationProperty Name="Loaisanpham" Relationship="Self.FK_Sanpham_Loaisanpham" FromRole="Sanpham" ToRole="Loaisanpham" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Trangthaidonhang">
+    <Key>
+      <PropertyRef Name="Mã_TT" />
+    </Key>
+    <Property Name="Mã_TT" Type="Int32" Nullable="false" />
+    <Property Name="Trạng_thái" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Donhangs" Relationship="Self.FK_Đơn_hàng_1_Trạng_thái_đơn_hàng" FromRole="Trangthaidonhang" ToRole="Donhang" />
+  </EntityType>
+  <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserClaims" Type="Self.AspNetUserClaim" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserClaims">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserLogins" Type="Self.AspNetUserLogin" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserLogins">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Chi_tiết_đơn_hàng_Đơn_hàng_1">
+    <End Role="Donhang" Type="Self.Donhang" Multiplicity="1" />
+    <End Role="Chitietdonhang" Type="Self.Chitietdonhang" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Donhang">
+        <PropertyRef Name="Mã_ĐH" />
+      </Principal>
+      <Dependent Role="Chitietdonhang">
+        <PropertyRef Name="Mã_ĐH" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Chitietdonhang_Sanpham">
+    <End Role="Sanpham" Type="Self.Sanpham" Multiplicity="1" />
+    <End Role="Chitietdonhang" Type="Self.Chitietdonhang" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sanpham">
+        <PropertyRef Name="Mã_SP" />
+      </Principal>
+      <Dependent Role="Chitietdonhang">
+        <PropertyRef Name="Mã_SP" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Chi_tiết_giỏ_hàng_1_Giỏ_hàng">
+    <End Role="Giohang" Type="Self.Giohang" Multiplicity="1" />
+    <End Role="Chitietgiohang" Type="Self.Chitietgiohang" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Giohang">
+        <PropertyRef Name="Mã_GH" />
+      </Principal>
+      <Dependent Role="Chitietgiohang">
+        <PropertyRef Name="Mã_GH" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Chitietgiohang_Sanpham">
+    <End Role="Sanpham" Type="Self.Sanpham" Multiplicity="1" />
+    <End Role="Chitietgiohang" Type="Self.Chitietgiohang" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Sanpham">
+        <PropertyRef Name="Mã_SP" />
+      </Principal>
+      <Dependent Role="Chitietgiohang">
+        <PropertyRef Name="Mã_SP" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Chi_tiết_thanh_toán_1_Đơn_hàng_1">
+    <End Role="Donhang" Type="Self.Donhang" Multiplicity="1" />
+    <End Role="Chitiethanhtoan" Type="Self.Chitiethanhtoan" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Donhang">
+        <PropertyRef Name="Mã_ĐH" />
+      </Principal>
+      <Dependent Role="Chitiethanhtoan">
+        <PropertyRef Name="Mã_ĐH" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Chi_tiết_thanh_toán_1_Hình_thức_thanh_toán">
+    <End Role="Hinhthucthanhtoan" Type="Self.Hinhthucthanhtoan" Multiplicity="1" />
+    <End Role="Chitiethanhtoan" Type="Self.Chitiethanhtoan" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Hinhthucthanhtoan">
+        <PropertyRef Name="Mã_HTTT" />
+      </Principal>
+      <Dependent Role="Chitiethanhtoan">
+        <PropertyRef Name="Mã_HTTT" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Đơn_hàng_1_Khách_hàng">
+    <End Role="Khachhang" Type="Self.Khachhang" Multiplicity="1" />
+    <End Role="Donhang" Type="Self.Donhang" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Khachhang">
+        <PropertyRef Name="Email" />
+      </Principal>
+      <Dependent Role="Donhang">
+        <PropertyRef Name="Email" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Đơn_hàng_1_Trạng_thái_đơn_hàng">
+    <End Role="Trangthaidonhang" Type="Self.Trangthaidonhang" Multiplicity="1" />
+    <End Role="Donhang" Type="Self.Donhang" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Trangthaidonhang">
+        <PropertyRef Name="Mã_TT" />
+      </Principal>
+      <Dependent Role="Donhang">
+        <PropertyRef Name="Mã_TT" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Giỏ_hàng_Khách_hàng">
+    <End Role="Khachhang" Type="Self.Khachhang" Multiplicity="1" />
+    <End Role="Giohang" Type="Self.Giohang" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Khachhang">
+        <PropertyRef Name="Email" />
+      </Principal>
+      <Dependent Role="Giohang">
+        <PropertyRef Name="Email" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Sanpham_Loaisanpham">
+    <End Role="Loaisanpham" Type="Self.Loaisanpham" Multiplicity="1" />
+    <End Role="Sanpham" Type="Self.Sanpham" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Loaisanpham">
+        <PropertyRef Name="Mã_loại_SP" />
+      </Principal>
+      <Dependent Role="Sanpham">
+        <PropertyRef Name="Mã_loại_SP" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="AspNetUserRoles">
+    <End Role="AspNetRoles" Type="Self.AspNetRole" Multiplicity="*" />
+    <End Role="AspNetUsers" Type="Self.AspNetUser" Multiplicity="*" />
+  </Association>
+  <EntityContainer Name="CT25Team111Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRole" />
+    <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaim" />
+    <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogin" />
+    <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUser" />
+    <EntitySet Name="Chitietdonhangs" EntityType="Self.Chitietdonhang" />
+    <EntitySet Name="Chitietgiohangs" EntityType="Self.Chitietgiohang" />
+    <EntitySet Name="Chitiethanhtoans" EntityType="Self.Chitiethanhtoan" />
+    <EntitySet Name="Donhangs" EntityType="Self.Donhang" />
+    <EntitySet Name="Giohangs" EntityType="Self.Giohang" />
+    <EntitySet Name="Hinhthucthanhtoans" EntityType="Self.Hinhthucthanhtoan" />
+    <EntitySet Name="Khachhangs" EntityType="Self.Khachhang" />
+    <EntitySet Name="Loaisanphams" EntityType="Self.Loaisanpham" />
+    <EntitySet Name="Sanphams" EntityType="Self.Sanpham" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <EntitySet Name="Trangthaidonhangs" EntityType="Self.Trangthaidonhang" />
+    <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Chi_tiết_đơn_hàng_Đơn_hàng_1" Association="Self.FK_Chi_tiết_đơn_hàng_Đơn_hàng_1">
+      <End Role="Donhang" EntitySet="Donhangs" />
+      <End Role="Chitietdonhang" EntitySet="Chitietdonhangs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Chitietdonhang_Sanpham" Association="Self.FK_Chitietdonhang_Sanpham">
+      <End Role="Sanpham" EntitySet="Sanphams" />
+      <End Role="Chitietdonhang" EntitySet="Chitietdonhangs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Chi_tiết_giỏ_hàng_1_Giỏ_hàng" Association="Self.FK_Chi_tiết_giỏ_hàng_1_Giỏ_hàng">
+      <End Role="Giohang" EntitySet="Giohangs" />
+      <End Role="Chitietgiohang" EntitySet="Chitietgiohangs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Chitietgiohang_Sanpham" Association="Self.FK_Chitietgiohang_Sanpham">
+      <End Role="Sanpham" EntitySet="Sanphams" />
+      <End Role="Chitietgiohang" EntitySet="Chitietgiohangs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Chi_tiết_thanh_toán_1_Đơn_hàng_1" Association="Self.FK_Chi_tiết_thanh_toán_1_Đơn_hàng_1">
+      <End Role="Donhang" EntitySet="Donhangs" />
+      <End Role="Chitiethanhtoan" EntitySet="Chitiethanhtoans" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Chi_tiết_thanh_toán_1_Hình_thức_thanh_toán" Association="Self.FK_Chi_tiết_thanh_toán_1_Hình_thức_thanh_toán">
+      <End Role="Hinhthucthanhtoan" EntitySet="Hinhthucthanhtoans" />
+      <End Role="Chitiethanhtoan" EntitySet="Chitiethanhtoans" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Đơn_hàng_1_Khách_hàng" Association="Self.FK_Đơn_hàng_1_Khách_hàng">
+      <End Role="Khachhang" EntitySet="Khachhangs" />
+      <End Role="Donhang" EntitySet="Donhangs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Đơn_hàng_1_Trạng_thái_đơn_hàng" Association="Self.FK_Đơn_hàng_1_Trạng_thái_đơn_hàng">
+      <End Role="Trangthaidonhang" EntitySet="Trangthaidonhangs" />
+      <End Role="Donhang" EntitySet="Donhangs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Giỏ_hàng_Khách_hàng" Association="Self.FK_Giỏ_hàng_Khách_hàng">
+      <End Role="Khachhang" EntitySet="Khachhangs" />
+      <End Role="Giohang" EntitySet="Giohangs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Sanpham_Loaisanpham" Association="Self.FK_Sanpham_Loaisanpham">
+      <End Role="Loaisanpham" EntitySet="Loaisanphams" />
+      <End Role="Sanpham" EntitySet="Sanphams" />
+    </AssociationSet>
+    <AssociationSet Name="AspNetUserRoles" Association="Self.AspNetUserRoles">
+      <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
